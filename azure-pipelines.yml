@@ -13,12 +13,12 @@ strategy:
       imageName: 'windows-2019'
       libnode_x86: '1'
 
+pool:
+  vmImage: $(imageName)
+
 variables:
   libnode_config_flags: '--without-intl'
   libnode_zip_suffix: '-nointl'
-
-pool:
-  vmImage: $(imageName)
 
 steps:
 - task: UsePythonVersion@0

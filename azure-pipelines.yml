@@ -33,18 +33,14 @@ steps:
     addToPath: false
     architecture: 'x64'
 
-- script: |
-    $(pythonPath.pythonLocation)/python -m scripts.download
+- script: '$(pythonPath.pythonLocation)/python -m scripts.download'
   displayName: 'Download source code of Node.js'
 
-- script: |
-    $(pythonPath.pythonLocation)/python -m scripts.build
+- script: '$(pythonPath.pythonLocation)/python -m scripts.build'
   displayName: 'Build'
 
-- script: |
-    $(pythonPath.pythonLocation)/python -m scripts.postproc
+- script: '$(pythonPath.pythonLocation)/python -m scripts.postproc'
   displayName: 'Postprocess'
 
-- script: |
-    $(pythonPath.pythonLocation)/python -m scripts.archive
+- script: '$(pythonPath.pythonLocation)/python -m scripts.archive'
   displayName: 'Archive'

@@ -1,24 +1,24 @@
 strategy:
   matrix:
     linux:
-      libnode_x86: '0'
+      LIBNODE_X86: '0'
       imageName: 'ubuntu-16.04'
     mac:
-      libnode_x86: '0'
+      LIBNODE_X86: '0'
       imageName: 'macos-10.13'
     win_x64:
-      libnode_x86: '0'
+      LIBNODE_X86: '0'
       imageName: 'windows-2019'
     win_x86:
-      libnode_x86: '1'
+      LIBNODE_X86: '1'
       imageName: 'windows-2019'
 
 pool:
   vmImage: $(imageName)
 
 variables:
-  libnode_config_flags: '--without-intl'
-  libnode_zip_suffix: '-nointl'
+  LIBNODE_CONFIG_FLAGS: '--without-intl'
+  LIBNODE_ZIP_SUFFIX: '-nointl'
 
 steps:
 - task: UsePythonVersion@0

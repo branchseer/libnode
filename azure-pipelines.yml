@@ -20,30 +20,32 @@ variables:
   libnode_config_flags: '--without-intl'
   libnode_zip_suffix: '-nointl'
 
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '2.7'
+    addToPath: true
+    architecture: 'x64'
+
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: 3.5
+    versionSpec: '3.5'
+    addToPath: false
     architecture: 'x64'
-
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: 2.7
-    architecture: 'x64'
-
 
 - script: |
-    python -m scripts.download
+    $(pythonPath.pythonLocation)/python -m scripts.download
   displayName: 'Download source code of Node.js'
 
 - script: |
-    python -m scripts.build
+    $(pythonPath.pythonLocation)/python -m scripts.build
   displayName: 'Build'
 
 - script: |
-    python -m scripts.postproc
+    $(pythonPath.pythonLocation)/python -m scripts.postproc
   displayName: 'Postprocess'
 
 - script: |
-    python -m scripts.archive
+    $(pythonPath.pythonLocation)/python -m scripts.archive
   displayName: 'Archive'

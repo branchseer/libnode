@@ -20,14 +20,13 @@ variables:
   libnode_config_flags: '--without-intl'
   libnode_zip_suffix: '-nointl'
 
-
+steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '2.7'
     addToPath: true
     architecture: 'x64'
 
-steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.5'

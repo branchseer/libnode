@@ -4,22 +4,27 @@ This repo contains the scripts that build [Node.js](http://nodejs.org/) as a sta
 
 ## Usage
 
-### Downloading the source code of Node.js:
+### Configuring
+
+#### Specify the Node version:
 ```sh
-python3 -m scripts.download
+export LIBNODE_NODE_VERSION=v11.11.0
 ```
 
-### Configuring (optional):
-
-#### Remove `Intl` support to reduce the size:
+#### Remove `Intl` support to reduce the size (optional):
 ```sh
 export LIBNODE_CONFIG_FLAGS=--without-intl
 export LIBNODE_ZIP_SUFFIX=-nointl
 ```
 
-#### Build the x86 version (Windows only):
+#### Build the x86 version (optional, Windows only):
 ```sh
 export LIBNODE_X86=1
+```
+
+### Downloading the source code of Node.js:
+```sh
+python3 -m scripts.download
 ```
 
 ### Building Node.js:

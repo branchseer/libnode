@@ -13,13 +13,13 @@ python3 -m scripts.download
 
 #### Remove `Intl` support to reduce the size:
 ```sh
-export libnode_config_flags=--without-intl
-export libnode_zip_suffix=-nointl
+export LIBNODE_CONFIG_FLAGS=--without-intl
+export LIBNODE_ZIP_SUFFIX=-nointl
 ```
 
 #### Build the x86 version (Windows only):
 ```sh
-export libnode_x86=1
+export LIBNODE_X86=1
 ```
 
 ### Building Node.js:

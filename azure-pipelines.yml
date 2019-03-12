@@ -14,7 +14,7 @@ strategy:
       libnode_x86: '1'
 
 variables:
-  libnode_config_flags: --without-intl
+  libnode_config_flags: '--without-intl'
   libnode_zip_suffix: '-nointl'
 
 pool:
@@ -26,18 +26,24 @@ steps:
     versionSpec: 3.5
     architecture: 'x64'
 
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: 2.7
+    architecture: 'x64'
+
 - script: |
-    python -m scripts.download
+    python3 -m scripts.download
   displayName: 'Download source code of Node.js'
 
 - script: |
-    python -m scripts.build
+    python3 -m scripts.build
   displayName: 'Build'
 
 - script: |
-    python -m scripts.postproc
+    python3 -m scripts.postproc
   displayName: 'Postprocess'
 
 - script: |
-    python -m scripts.archive
+    python3 -m scripts.archive
   displayName: 'Archive'

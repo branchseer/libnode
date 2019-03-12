@@ -45,11 +45,11 @@ jobs:
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.download
       displayName: 'Download source code of Node.js'
 
-    - script: |
+    - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.build
       displayName: 'Build'
 
-    - script: |
+    - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.postproc
       displayName: 'Postprocess'
 

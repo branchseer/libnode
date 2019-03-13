@@ -1,4 +1,6 @@
-# libnode
+# libnode 
+
+[![Build Status](https://dev.azure.com/patr0nus/libnode/_apis/build/status/libnode-ci?branchName=master)](https://dev.azure.com/patr0nus/libnode/_build/latest?definitionId=1&branchName=master)
 
 This repo contains the scripts that build [Node.js](http://nodejs.org/) as a static library for embedding in [DeskGap](https://deskgap.com/).
 

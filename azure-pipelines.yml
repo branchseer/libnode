@@ -7,15 +7,15 @@ jobs:
   - job: build
     strategy:
       matrix:
-        # linux:
-        #   LIBNODE_X86: '0'
-        #   imageName: 'ubuntu-16.04'
-        # mac:
-        #   LIBNODE_X86: '0'
-        #   imageName: 'macos-10.13'
-        # win_x64:
-        #   LIBNODE_X86: '0'
-        #   imageName: 'windows-2019'
+        linux:
+          LIBNODE_X86: '0'
+          imageName: 'ubuntu-16.04'
+        mac:
+          LIBNODE_X86: '0'
+          imageName: 'macos-10.13'
+        win_x64:
+          LIBNODE_X86: '0'
+          imageName: 'vs2017-win2016'
         win_x86:
           LIBNODE_X86: '1'
           imageName: 'vs2017-win2016'

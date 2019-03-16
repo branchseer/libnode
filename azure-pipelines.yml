@@ -1,7 +1,5 @@
 trigger:
-  tags:
-    include:
-    - libnode-v*
+- master
 
 jobs:
   - job: build
@@ -76,7 +74,8 @@ jobs:
         repositoryName: patr0nus/libnode
         action: 'create'
         target: '$(Build.SourceVersion)'
-        tagSource: auto
+        tagSource: 'manual'
+        tag: 'libnode-$(LIBNODE_NODE_VERSION)'
         assets: '$(Build.ArtifactStagingDirectory)/*/*'
         isDraft: false
         addChangeLog: false

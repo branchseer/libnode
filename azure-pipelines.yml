@@ -22,7 +22,7 @@ jobs:
       vmImage: $(imageName)
 
     variables:
-      LIBNODE_NODE_VERSION: 'v11.11.0'
+      LIBNODE_NODE_VERSION: 'v11.12.0'
       LIBNODE_CONFIG_FLAGS: '--without-intl'
       LIBNODE_ZIP_SUFFIX: '-nointl'
 

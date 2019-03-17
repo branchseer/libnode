@@ -25,6 +25,7 @@ jobs:
     pool:
       vmImage: $(imageName)
 
+    variables:
       LIBNODE_CONFIG_FLAGS: '--without-intl'
       LIBNODE_ZIP_SUFFIX: '-nointl'
 

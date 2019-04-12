@@ -3,7 +3,7 @@ trigger:
 
 
 variables:
-  LIBNODE_NODE_VERSION: 'v11.13.0'
+  LIBNODE_NODE_VERSION: 'v11.14.0'
 
 jobs:
   - job: build

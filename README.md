@@ -14,14 +14,6 @@ export LIBNODE_NODE_VERSION=v12.13.0
 ```
 
 
-### Build stubs & the C API entry
-
-```sh
-mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . 
-```
-
 #### Remove `Intl` support to reduce the size (optional):
 ```sh
 export LIBNODE_CONFIG_FLAGS=--without-intl
@@ -36,6 +28,13 @@ export LIBNODE_X86=1
 ### Downloading the source code of Node.js:
 ```sh
 python3 -m scripts.download
+```
+
+### Build stubs & the C API entry:
+```sh
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . 
 ```
 
 ### Building Node.js:

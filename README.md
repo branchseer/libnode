@@ -10,7 +10,16 @@ This repo contains the scripts that build [Node.js](http://nodejs.org/) as a sta
 
 #### Specify the Node version:
 ```sh
-export LIBNODE_NODE_VERSION=v11.11.0
+export LIBNODE_NODE_VERSION=v12.13.0
+```
+
+
+### Build stubs & the C API entry
+
+```sh
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . 
 ```
 
 #### Remove `Intl` support to reduce the size (optional):

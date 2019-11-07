@@ -2,3 +2,6 @@ __pycache__
 .DS_Store
 /release
 /node-*
+/node_headers.tar.gz
+.idea
+/build

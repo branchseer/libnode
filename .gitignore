@@ -2,6 +2,7 @@ __pycache__
 .DS_Store
 /release
 /node-*
+/cmake-build-*
 /node_headers.tar.gz
 .idea
 /build

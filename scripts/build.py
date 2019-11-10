@@ -3,8 +3,17 @@ assert __name__ == "__main__"
 import sys
 import os
 import subprocess
+import shutil
 
 from . import config
+
+shutil.rmtree('build', ignore_errors=True)
+if sys:platform == 'win32':
+    pass
+else:
+    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-S', '.', '-B', 'build'])
+    subprocess.check_call(['cmake', '--build', 'build'])
+
 
 os.chdir('node-{}'.format(config.nodeVersion))
 

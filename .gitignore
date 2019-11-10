@@ -5,4 +5,5 @@ __pycache__
 /cmake-build-*
 /node_headers.tar.gz
 .idea
-/build
+build
+.vs

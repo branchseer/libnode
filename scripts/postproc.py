@@ -12,7 +12,7 @@ resultFolder = 'release'
 
 libFolder = os.path.join(resultFolder, 'lib')
 
-shutil.rmtree(resultFolder, ignore_errors=True)
+shutil.rmtree(resultFolder, ignore_errors=False)
 
 os.mkdir(resultFolder)
 os.mkdir(libFolder)
@@ -45,8 +45,9 @@ elif sys.platform == 'linux':
                     check=True, shell=True
                 )
 
-for libFile in os.scandir('build'):
+for libFile in os.scandir('build\\Release' if sys.platform == 'win32' else 'build'):
     if libFile.is_file() and libFile.name.endswith('.lib' if sys.platform == 'win32' else '.a'):
         shutil.copy(libFile.path, libFolder)
 
 shutil.copytree(os.path.join(nodeSrcFolder, 'include'), os.path.join(resultFolder, 'include'))
+shutil.copy(os.path.join('src', 'node_start.h'), os.path.join(resultFolder, 'include', 'node'))

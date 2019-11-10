@@ -7,11 +7,16 @@ import shutil
 
 from . import config
 
-shutil.rmtree('build', ignore_errors=True)
+shutil.rmtree('build', ignore_errors=False)
+os.mkdir('build')
+
 if sys.platform == 'win32':
-    pass
+    os.chdir('build')
+    subprocess.check_call(['cmake', '-G', 'Visual Studio 15 2017' + ('' if config.x86 else ' Win64'), '-S', '..\\src'])
+    os.chdir('..')
+    subprocess.check_call(['cmake', '--build', 'build', '--config', 'Release'])
 else:
-    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-DCMAKE_BUILD_TYPE=Release', '-S', '.', '-B', 'build'])
+    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-DCMAKE_BUILD_TYPE=Release', '-S', 'src', '-B', 'build'])
     subprocess.check_call(['cmake', '--build', 'build'])
 
 

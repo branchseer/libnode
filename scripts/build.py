@@ -8,10 +8,10 @@ import shutil
 from . import config
 
 shutil.rmtree('build', ignore_errors=True)
-if sys:platform == 'win32':
+if sys.platform == 'win32':
     pass
 else:
-    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-S', '.', '-B', 'build'])
+    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-DCMAKE_BUILD_TYPE=Release', '-S', '.', '-B', 'build'])
     subprocess.check_call(['cmake', '--build', 'build'])
 
 

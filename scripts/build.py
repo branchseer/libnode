@@ -7,17 +7,16 @@ import shutil
 
 from . import config
 
-shutil.rmtree('build', ignore_errors=False)
+shutil.rmtree('build', ignore_errors=True)
 os.mkdir('build')
-
+os.chdir('build')
 if sys.platform == 'win32':
-    os.chdir('build')
-    subprocess.check_call(['cmake', '-G', 'Visual Studio 15 2017' + ('' if config.x86 else ' Win64'), '-S', '..\\src'])
-    os.chdir('..')
-    subprocess.check_call(['cmake', '--build', 'build', '--config', 'Release'])
+    subprocess.check_call(['cmake', '-G', 'Visual Studio 15 2017' + ('' if config.x86 else ' Win64'), '-S', '../src'])
 else:
-    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-DCMAKE_BUILD_TYPE=Release', '-S', 'src', '-B', 'build'])
-    subprocess.check_call(['cmake', '--build', 'build'])
+    subprocess.check_call(['cmake', '-G', 'Unix Makefiles', '-DCMAKE_BUILD_TYPE=Release', '-S', '../src'])
+os.chdir('..')
+
+subprocess.check_call(['cmake', '--build', 'build', '--config', 'Release'])
 
 
 os.chdir('node-{}'.format(config.nodeVersion))
@@ -41,4 +40,4 @@ else:
     if config.configFlags is not None:
         configureArgvs += config.configFlags
     subprocess.check_call(configureArgvs)
-    subprocess.check_call(['make', '-j{}'.format(os.cpu_count())])
+    subprocess.check_call(['make', '-j{}'.format(os.cpu_count)])

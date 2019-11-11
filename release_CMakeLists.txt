@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
-set(CMAKE_CXX_STANDARD 11)
 
 project(libnode)
 
-set(NODE_DIR ${PROJECT_SOURCE_DIR}/../node-$ENV{LIBNODE_NODE_VERSION})
-include_directories(${NODE_DIR}/include/node)
 
-add_library(node_stubs STATIC ${NODE_DIR}/src/node_code_cache_stub.cc  ${NODE_DIR}/src/node_snapshot_stub.cc)
-target_compile_definitions(node_stubs PRIVATE NODE_WANT_INTERNALS=1)
+file(GLOB LIBNODE_ARCHIVES ${CMAKE_CURRENT_LIST_FILE}/lib/*)
+set(LIBNODE_INCLUDE ${CMAKE_CURRENT_LIST_FILE}/include)
 
-add_library(node_start STATIC node_start.cc)
+add_custom_target(libnode)
+target_link_libraries(libnode INTERFACE ${LIBNODE_ARCHIVES})
+target_include_directories(libnode INTERFACE ${LIBNODE_INCLUDE})

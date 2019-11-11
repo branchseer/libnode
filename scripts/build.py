@@ -40,4 +40,4 @@ else:
     if config.configFlags is not None:
         configureArgvs += config.configFlags
     subprocess.check_call(configureArgvs)
-    subprocess.check_call(['make', '-j{}'.format(os.cpu_count)])
+    subprocess.check_call(['make', '-j{}'.format(os.cpu_count())])

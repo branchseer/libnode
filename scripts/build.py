@@ -23,8 +23,6 @@ os.chdir('node-{}'.format(config.nodeVersion))
 
 if sys.platform == 'win32':
     vcbuildArgs = [ 'static' ]
-    if '--without-ssl' not in config.configFlags:
-        vcbuildArgs.append('openssl-no-asm')
     if config.x86:
         vcbuildArgs.append('x86')
 

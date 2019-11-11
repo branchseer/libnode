@@ -14,7 +14,7 @@ elseif(WIN32)
 	target_compile_options(libnode INTERFACE "/MT")
 	if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 	# Nodejs is compiled with /SAFESEH:NO with when using MSVC targeting 32bit: https://github.com/nodejs/node/commit/2f477bd34de128683c8d183e759b8f098205b1c9
-		target_link_libraries(libnode INTERFACE "/SAFESEH:NO")
+		target_link_options(libnode INTERFACE "/SAFESEH:NO")
 	endif()
 else()
 	target_link_libraries(libnode INTERFACE ${LIBNODE_ARCHIVES})

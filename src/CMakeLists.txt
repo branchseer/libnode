@@ -10,3 +10,8 @@ add_library(node_stubs STATIC ${NODE_DIR}/src/node_code_cache_stub.cc  ${NODE_DI
 target_compile_definitions(node_stubs PRIVATE NODE_WANT_INTERNALS=1)
 
 add_library(node_start STATIC node_start.cc)
+
+if(WIN32)
+	target_compile_options(node_stubs PUBLIC "/MT")
+	target_compile_options(node_start PUBLIC "/MT")
+endif()

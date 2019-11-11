@@ -10,24 +10,48 @@ jobs:
     strategy:
       matrix:
         linux:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '0'
-          imageName: 'ubuntu-16.04'
+          imageName: 'ubuntu-18.04'
         mac:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '0'
           imageName: 'macos-10.13'
         win_x64:
           LIBNODE_X86: '0'
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
           imageName: 'vs2017-win2016'
         win_x86:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '1'
           imageName: 'vs2017-win2016'
-
+        linux_nossl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl --without-ssl'
+          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
+          LIBNODE_X86: '0'
+          imageName: 'ubuntu-18.04'
+        mac_nossl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl --without-ssl'
+          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
+          LIBNODE_X86: '0'
+          imageName: 'macos-10.13'
+        win_x64_nossl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl --without-ssl'
+          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
+          LIBNODE_X86: '0'
+          imageName: 'vs2017-win2016'
+        win_x86_nossl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl --without-ssl'
+          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
+          LIBNODE_X86: '1'
+          imageName: 'vs2017-win2016'
     pool:
       vmImage: $(imageName)
 
-    variables:
-      LIBNODE_CONFIG_FLAGS: '--without-intl'
-      LIBNODE_ZIP_SUFFIX: '-nointl'
 
     steps:
     - task: UsePythonVersion@0
@@ -53,6 +77,10 @@ jobs:
     - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.postproc
       displayName: 'Postprocess'
+
+    - bash: |
+        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.test
+      displayName: 'Test'
 
     - bash: |
         output=$($USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.archive)

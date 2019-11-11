@@ -3,6 +3,7 @@ assert __name__ == "__main__"
 import urllib.request
 import tarfile
 import os
+import sys
 import subprocess
 
 from . import config

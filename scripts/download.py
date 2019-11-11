@@ -3,7 +3,11 @@ assert __name__ == "__main__"
 import urllib.request
 import tarfile
 import os
+import subprocess
+
 from . import config
+
+subprocess.check_call(['choco', 'install', 'nasm', '-y'])
 
 url = 'https://nodejs.org/dist/{}/node-{}.tar.gz'.format(config.nodeVersion, config.nodeVersion)
 header_url = "https://nodejs.org/dist/{}/node-{}-headers.tar.gz".format(config.nodeVersion, config.nodeVersion)

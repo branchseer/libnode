@@ -66,6 +66,16 @@ jobs:
         addToPath: false
         architecture: 'x64'
 
+    - script: |
+        pip3 install cmake
+      condition: eq( variables['Agent.OS'], 'Linux' )
+      displayName: 'Install newer(3.13+) CMake on Linux'
+
+    - script: |
+        choco install nasm -y
+      condition: eq( variables['Agent.OS'], 'Windows_NT' )
+      displayName: 'Install nasm on Windows'
+
     - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.download
       displayName: 'Download source code of Node.js'

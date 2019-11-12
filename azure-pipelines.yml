@@ -67,7 +67,13 @@ jobs:
         architecture: 'x64'
 
     - script: |
-        sudo apt-get remove -y cmake
+        sudo rm -rf /usr/local/bin/cmake*
+        sudo rm -rf /usr/local/bin/ctest*
+        sudo rm -rf /usr/local/doc/cmake
+        sudo rm -rf /usr/local/man/man1/cmake*
+        sudo rm -rf /usr/local/man/man1/ctest*
+        sudo rm -rf /usr/local/man/man7/cmake*
+        sudo rm -rf /usr/local/share/cmake*
         sudo pip3 install cmake
       condition: eq( variables['Agent.OS'], 'Linux' )
       displayName: 'Install newer(3.13+) CMake on Linux'

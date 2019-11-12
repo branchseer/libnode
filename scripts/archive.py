@@ -12,6 +12,6 @@ zipBasename = 'libnode-{}-{}-{}{}'.format(
     config.zipBasenameSuffix
 )
 
-shutil.make_archive(zipBasename, 'zip', base_dir='release')
+shutil.make_archive(zipBasename, 'zip', base_dir='libnode')
 
 print(zipBasename + '.zip')

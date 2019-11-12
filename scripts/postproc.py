@@ -8,7 +8,7 @@ import subprocess
 from . import config
 
 nodeSrcFolder = 'node-{}'.format(config.nodeVersion)
-resultFolder = 'release'
+resultFolder = 'libnode'
 
 libFolder = os.path.join(resultFolder, 'lib')
 

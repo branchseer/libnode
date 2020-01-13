@@ -52,18 +52,10 @@ jobs:
     pool:
       vmImage: $(imageName)
 
-
-    steps:
     - task: UsePythonVersion@0
       inputs:
-        versionSpec: '2.7'
+        versionSpec: '3.7'
         addToPath: true
-        architecture: 'x64'
-
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.5'
-        addToPath: false
         architecture: 'x64'
 
     - script: |
@@ -84,19 +76,19 @@ jobs:
       displayName: 'Install nasm on Windows'
 
     - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.download
+        $USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.download
       displayName: 'Download source code of Node.js'
 
     - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.build
+        $USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.build
       displayName: 'Build'
 
     - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.postproc
+        $USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.postproc
       displayName: 'Postprocess'
 
     - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.test
+        $USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.test
       displayName: 'Test'
 
     - bash: |

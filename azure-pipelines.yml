@@ -3,7 +3,7 @@ trigger:
 
 
 variables:
-  LIBNODE_NODE_VERSION: 'v12.14.1'
+  LIBNODE_NODE_VERSION: 'v13.6.0'
 
 jobs:
   - job: build
@@ -23,12 +23,12 @@ jobs:
           LIBNODE_X86: '0'
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
           LIBNODE_ZIP_SUFFIX: '-nointl'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
         win_x86:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
           LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '1'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
         linux_nossl:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
@@ -40,15 +40,15 @@ jobs:
           LIBNODE_X86: '0'
           imageName: 'macos-10.13'
         win_x64_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl --openssl-no-asm'
+          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
           LIBNODE_X86: '0'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
         win_x86_nossl:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
           LIBNODE_X86: '1'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
     pool:
       vmImage: $(imageName)
 

@@ -44,6 +44,9 @@ elif sys.platform == 'linux':
                     ),
                     check=True, shell=True
                 )
+    shutil.copy(nodeSrcFolder + '/src/large_pages/ld.implicit.script', resultFolder)
+    shutil.copy(nodeSrcFolder + '/src/large_pages/ld.implicit.script.lld', resultFolder)
+
 
 for libFile in os.scandir('build\\Release' if sys.platform == 'win32' else 'build'):
     if libFile.is_file() and libFile.name.endswith('.lib' if sys.platform == 'win32' else '.a'):

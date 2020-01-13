@@ -40,7 +40,7 @@ jobs:
           LIBNODE_X86: '0'
           imageName: 'macos-10.13'
         win_x64_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
+          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl --openssl-no-asm'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
           LIBNODE_X86: '0'
           imageName: 'vs2017-win2016'

@@ -22,7 +22,7 @@ def filterLibFile(filename):
     return 'gtest' not in filename and 'v8_nosnapshot' not in filename
 
 if sys.platform == 'win32':
-    for libFile in os.scandir(nodeSrcFolder + 'out\\Release\\lib'):
+    for libFile in os.scandir(nodeSrcFolder + '\\out\\Release\\lib'):
         if libFile.is_file() and libFile.name.endswith('.lib') and filterLibFile(libFile.name):
             print('Copying', libFile.name)
             shutil.copy(libFile.path, libFolder)

@@ -93,7 +93,7 @@ jobs:
       displayName: 'Test'
 
     - bash: |
-        output=$($USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.archive)
+        output=$($USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.archive)
         echo "##vso[task.setvariable variable=zip_file;]$output"
       displayName: 'Archive'
     

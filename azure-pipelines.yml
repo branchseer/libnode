@@ -60,16 +60,13 @@ jobs:
         architecture: 'x64'
 
     - script: |
-        sudo rm -rf /usr/local/bin/cmake*
-        sudo rm -rf /usr/local/bin/ctest*
-        sudo rm -rf /usr/local/doc/cmake
-        sudo rm -rf /usr/local/man/man1/cmake*
-        sudo rm -rf /usr/local/man/man1/ctest*
-        sudo rm -rf /usr/local/man/man7/cmake*
-        sudo rm -rf /usr/local/share/cmake*
-        sudo pip3 install cmake
+        set -e
+        wget https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5-Linux-x86_64.tar.gz
+        tar -xvf cmake-3.15.5-Linux-x86_64.tar.gz > /dev/null
+        export PATH=$PWD/cmake-3.15.5-Linux-x86_64/bin:$PATH
+        echo "##vso[task.setvariable variable=PATH]$PATH"
       condition: eq( variables['Agent.OS'], 'Linux' )
-      displayName: 'Install newer(3.13+) CMake on Linux'
+      displayName: 'Install a newer version of CMake on Linux'
 
     - script: |
         choco install nasm -y

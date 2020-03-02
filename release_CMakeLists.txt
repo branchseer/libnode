@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(libnode)
 
 file(GLOB LIBNODE_ARCHIVES ${CMAKE_CURRENT_LIST_DIR}/lib/*)
-set(LIBNODE_INCLUDE ${CMAKE_CURRENT_LIST_DIR}/include)
+set(LIBNODE_INCLUDE ${CMAKE_CURRENT_LIST_DIR}/include/node)
 
 add_library(libnode INTERFACE)
 

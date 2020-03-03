@@ -55,3 +55,6 @@ for libFile in os.scandir('build\\Release' if sys.platform == 'win32' else 'buil
 shutil.copytree(os.path.join(nodeSrcFolder, 'include'), os.path.join(resultFolder, 'include'))
 shutil.copy(os.path.join('src', 'node_start.h'), os.path.join(resultFolder, 'include', 'node'))
 shutil.copyfile('release_CMakeLists.txt', os.path.join(resultFolder, 'CMakeLists.txt'))
+
+with open(os.path.join(resultFolder, 'dummy.c'), "w") as dummy_c_file:
+    print("void libnode_dummy_func() { }", file=dummy_c_file)

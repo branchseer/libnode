@@ -73,6 +73,10 @@ jobs:
       condition: eq( variables['Agent.OS'], 'Windows_NT' )
       displayName: 'Install nasm on Windows'
 
+    - bash: sudo xcode-select -s /Applications/Xcode_8.3.3.app/Contents/Developer
+      condition: eq( variables['Agent.OS'], 'Darwin' )
+      displayName: 'Switch to Xcode 10 on macOS'
+
     - bash: |
         $USEPYTHONVERSION_PYTHONLOCATION/python -m scripts.download
       displayName: 'Download source code of Node.js'

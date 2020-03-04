@@ -18,7 +18,7 @@ jobs:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
           LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '0'
-          imageName: 'macOS-10.15'
+          imageName: 'macOS-10.14'
         win_x64:
           LIBNODE_X86: '0'
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
@@ -38,7 +38,7 @@ jobs:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
           LIBNODE_X86: '0'
-          imageName: 'macOS-10.15'
+          imageName: 'macOS-10.14'
         win_x64_nossl:
           LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
           LIBNODE_ZIP_SUFFIX: '-nointl-nossl'

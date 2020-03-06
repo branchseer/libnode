@@ -1,7 +1,12 @@
 assert __name__ == "__main__"
 
 import subprocess
+import os
+import shutil
 
 from . import config
 
-subprocess.check_call(['patch', '-d', 'node-{}'.format(config.nodeVersion), '-p1', '-i', '../uv.patch'])
+os.chdir('node-{}'.format(config.nodeVersion))
+
+subprocess.check_call(['patch', '-p1', '-i', '../uv.patch'])
+shutil.copy('deps/uv/include/uv.h', 'include/node/uv.h')

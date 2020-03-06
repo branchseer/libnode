@@ -80,6 +80,11 @@ jobs:
       condition: eq( variables['Agent.OS'], 'Windows_NT' )
       displayName: 'Install nasm on Windows'
 
+    - script: |
+        choco install patch -y
+      condition: eq( variables['Agent.OS'], 'Windows_NT' )
+      displayName: 'Install GNU patch on Windows'
+
     - bash: sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
       condition: eq( variables['Agent.OS'], 'Darwin' )
       displayName: 'Switch to Xcode 10 on macOS'
@@ -87,6 +92,10 @@ jobs:
     - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.download
       displayName: 'Download source code of Node.js'
+
+    - bash: |
+        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.patch
+      displayName: 'Patch'
 
     - bash: |
         $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.build

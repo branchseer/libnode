@@ -18,7 +18,7 @@ if sys.platform == 'win32':
     env['config_flags'] = ' '.join(config.configFlags)
     
     subprocess.check_call(
-        ['cmd', '/c', 'vcbuild.bat'] + vcbuildArgs,
+        ['cmd', '/c', 'vcbuild.bat'],
         env=env
     )
 else:

@@ -10,15 +10,13 @@ from . import config
 os.chdir('node-{}'.format(config.nodeVersion))
 
 configureArgvs = [ '--enable-static', '--without-node-options' ] + config.configFlags
-if config.x86:
-    configureArgvs += [ '--dest-cpu=x86' ]
 
 if sys.platform == 'win32':
     env = os.environ.copy()
     env['config_flags'] = ' '.join(config.configFlags)
     
     subprocess.check_call(
-        ['cmd', '/c', 'vcbuild.bat'],
+        ['cmd', '/c', 'vcbuild.bat'] + (['x86'] if config.x86 else []):
         env=env
     )
 else:

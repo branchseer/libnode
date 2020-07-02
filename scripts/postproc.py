@@ -36,11 +36,17 @@ elif sys.platform == 'darwin':
             shutil.copy(libFile.path, libFolder)
             print('Striping', libFile.name)
             subprocess.check_call(['strip', '-x', os.path.join(libFolder, libFile.name)])
-if sys.platform == 'linux':
-    for libFile in os.scandir(nodeSrcFolder + '/out/Release'):
-        if libFile.is_file() and libFile.name.endswith('.a') and filterLibFile(libFile.name):
-            print('Copying', libFile.name)
-            shutil.copy(libFile.path, libFolder)
+elif sys.platform == 'linux':
+    for dirname, _, basenames in os.walk(nodeSrcFolder + '/out/Release/obj.target'):
+        for basename in basenames:
+            if basename.endswith('.a') and filterLibFile(basename):
+                subprocess.run(
+                    'ar -t {} | xargs ar rs {}'.format(
+                        os.path.join(dirname, basename),
+                        os.path.join(libFolder, basename)
+                    ),
+                    check=True, shell=True
+                )
 
 additional_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
 if sys.platform == 'win32':

@@ -47,9 +47,9 @@ elif sys.platform == 'linux':
     ldScriptPath = nodeSrcFolder + '/src/large_pages/ld.implicit.script'
     ldScriptPathClang = ldScriptPath + '.lld'
 
-    for ldScript in [ldScriptPath, ldScriptPathClang]:
-        if os.path.exists(ldScript):
-            shutil.copy(ldScript, resultFolder)
+    shutil.copy(ldScriptPath, resultFolder)
+    if os.path.exists(ldScriptPathClang):
+        shutil.copy(ldScriptPathClang, resultFolder)
 
 
 for libFile in os.scandir('build\\Release' if sys.platform == 'win32' else 'build'):

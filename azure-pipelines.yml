@@ -1,6 +1,3 @@
-variables:
-  LIBNODE_NODE_VERSION: 'v12.5.0'
-
 jobs:
   - job: build
     strategy:

@@ -8,9 +8,9 @@ This repo contains the scripts that build [Node.js](http://nodejs.org/) as a sta
 
 ### Configuring
 
-#### Specify the Node version:
+#### Specify the Node version (optional):
 ```sh
-export LIBNODE_NODE_VERSION=v12.13.0
+export LIBNODE_NODE_VERSION=v14.5.0
 ```
 
 #### Remove `Intl` support to reduce the size (optional):

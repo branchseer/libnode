@@ -48,7 +48,7 @@ jobs:
       condition: eq( variables['Agent.OS'], 'Darwin' )
       displayName: 'Install Ninja on macOS'
 
-    - script: sudo apt-get --yes install ninja
+    - script: sudo apt-get install -y ninja-build
       condition: eq( variables['Agent.OS'], 'Linux' )
       displayName: 'Install Ninja on Linux'
 

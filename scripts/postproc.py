@@ -4,8 +4,11 @@ import sys
 import os
 import shutil
 import subprocess
+import glob
 
 from . import config
+
+
 
 nodeSrcFolder = 'node-{}'.format(config.nodeVersion)
 resultFolder = 'libnode'
@@ -33,32 +36,18 @@ elif sys.platform == 'darwin':
             shutil.copy(libFile.path, libFolder)
             print('Striping', libFile.name)
             subprocess.check_call(['strip', '-x', os.path.join(libFolder, libFile.name)])
-elif sys.platform == 'linux':
-    for dirname, _, basenames in os.walk(nodeSrcFolder + '/out/Release/obj.target'):
-        for basename in basenames:
-            if basename.endswith('.a') and filterLibFile(basename):
-                subprocess.run(
-                    'ar -t {} | xargs ar rs {}'.format(
-                        os.path.join(dirname, basename),
-                        os.path.join(libFolder, basename)
-                    ),
-                    check=True, shell=True
-                )
-    ldScriptPath = nodeSrcFolder + '/src/large_pages/ld.implicit.script'
-    ldScriptPathClang = ldScriptPath + '.lld'
+if sys.platform == 'linux':
+    for libFile in os.scandir(nodeSrcFolder + '/out/Release'):
+        if libFile.is_file() and libFile.name.endswith('.a') and filterLibFile(libFile.name):
+            print('Copying', libFile.name)
+            shutil.copy(libFile.path, libFolder)
 
-    shutil.copy(ldScriptPath, resultFolder)
-    if os.path.exists(ldScriptPathClang):
-        shutil.copy(ldScriptPathClang, resultFolder)
-
-
-for libFile in os.scandir('build\\Release' if sys.platform == 'win32' else 'build'):
-    if libFile.is_file() and libFile.name.endswith('.lib' if sys.platform == 'win32' else '.a'):
-        shutil.copy(libFile.path, libFolder)
+snapshot_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
+for obj_path in glob.glob(snapshot_obj_glob):
+    shutil.copy(obj_path, libFolder)
 
 shutil.copytree(os.path.join(nodeSrcFolder, 'include'), os.path.join(resultFolder, 'include'))
-shutil.copy(os.path.join('src', 'node_start.h'), os.path.join(resultFolder, 'include', 'node'))
-shutil.copyfile('release_CMakeLists.txt', os.path.join(resultFolder, 'CMakeLists.txt'))
+shutil.copyfile('CMakeLists.txt', os.path.join(resultFolder, 'CMakeLists.txt'))
 
 with open(os.path.join(resultFolder, 'dummy.c'), "w") as dummy_c_file:
     print("void libnode_dummy_func() { }", file=dummy_c_file)

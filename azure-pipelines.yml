@@ -1,100 +1,73 @@
+variables:
+  LIBNODE_NODE_VERSION: 'v14.5.0'
+
 jobs:
   - job: build
     strategy:
       matrix:
         linux:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
-          LIBNODE_ZIP_SUFFIX: '-nointl'
-          LIBNODE_X86: '0'
           imageName: 'ubuntu-18.04'
         mac:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
-          LIBNODE_ZIP_SUFFIX: '-nointl'
-          LIBNODE_X86: '0'
-          imageName: 'macOS-10.14'
+          imageName: 'macOS-10.15'
         win_x64:
-          LIBNODE_X86: '0'
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
-          LIBNODE_ZIP_SUFFIX: '-nointl'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
         win_x86:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl'
+          LIBNODE_X86: '1'
+          imageName: 'windows-2019'
+        linux_nointl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
+          imageName: 'ubuntu-18.04'
+        mac_nointl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
+          imageName: 'macOS-10.15'
+        win_x64_nointl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
+          LIBNODE_ZIP_SUFFIX: '-nointl'
+          imageName: 'windows-2019'
+        win_x86_nointl:
+          LIBNODE_CONFIG_FLAGS: '--without-intl'
           LIBNODE_ZIP_SUFFIX: '-nointl'
           LIBNODE_X86: '1'
-          imageName: 'vs2017-win2016'
-        linux_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
-          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
-          LIBNODE_X86: '0'
-          imageName: 'ubuntu-18.04'
-        mac_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
-          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
-          LIBNODE_X86: '0'
-          imageName: 'macOS-10.14'
-        win_x64_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
-          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
-          LIBNODE_X86: '0'
-          imageName: 'vs2017-win2016'
-        win_x86_nossl:
-          LIBNODE_CONFIG_FLAGS: '--without-node-options --without-intl --without-ssl'
-          LIBNODE_ZIP_SUFFIX: '-nointl-nossl'
-          LIBNODE_X86: '1'
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-2019'
     pool:
       vmImage: $(imageName)
 
     steps:
-    
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '2.7'
-        addToPath: true
-        architecture: 'x64'
         
     - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '3.7'
-        addToPath: false
-        architecture: 'x64'
 
     - script: |
-        set -e
-        wget https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5-Linux-x86_64.tar.gz
-        tar -xvf cmake-3.15.5-Linux-x86_64.tar.gz > /dev/null
-        export PATH=$PWD/cmake-3.15.5-Linux-x86_64/bin:$PATH
-        echo "##vso[task.setvariable variable=PATH]$PATH"
-      condition: eq( variables['Agent.OS'], 'Linux' )
-      displayName: 'Install a newer version of CMake on Linux'
-
-    - script: |
-        choco install nasm -y
+        choco install -y nasm
       condition: eq( variables['Agent.OS'], 'Windows_NT' )
       displayName: 'Install nasm on Windows'
 
-    - bash: sudo xcode-select -s /Applications/Xcode_10.3.app/Contents/Developer
-      condition: eq( variables['Agent.OS'], 'Darwin' )
-      displayName: 'Switch to Xcode 10 on macOS'
+    - script: |
+        choco install -y patch
+      condition: eq( variables['Agent.OS'], 'Windows_NT' )
+      displayName: 'Install GNU patch on Windows'
 
-    - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.download
+    - bash: python3 -m scripts.download
       displayName: 'Download source code of Node.js'
 
-    - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.build
+    - bash: python3 -m scripts.patch
+      displayName: 'Patch source code of Node.js'
+
+    - bash: python3 -m scripts.headers
+      displayName: 'Copy Headers'
+
+    - bash: python3 -m scripts.build
       displayName: 'Build'
 
-    - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.postproc
+    - bash: python3 -m scripts.postproc
       displayName: 'Postprocess'
 
-    - bash: |
-        $USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.test
+    - bash: python3 -m scripts.test
       displayName: 'Test'
 
     - bash: |
-        output=$($USEPYTHONVERSION2_PYTHONLOCATION/python -m scripts.archive)
+        output=$(python3 -m scripts.archive)
         echo "##vso[task.setvariable variable=zip_file;]$output"
       displayName: 'Archive'
     

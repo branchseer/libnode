@@ -1,0 +1,55 @@
+diff --git a/node.gyp b/node.gyp
+index bc5e4a11aecde1075ec7a411a820adee7acf7c1f..ffc05e7662a63176b093101360a5ff2532311e97 100644
+--- a/node.gyp
++++ b/node.gyp
+@@ -607,6 +607,7 @@
+         'src/node_report_utils.cc',
+         'src/node_serdes.cc',
+         'src/node_sockaddr.cc',
++        'src/node_start.cc',
+         'src/node_stat_watcher.cc',
+         'src/node_symbols.cc',
+         'src/node_task_queue.cc',
+diff --git a/tools/install.py b/tools/install.py
+index 655802980a6ea94d1d4ca1dc63c8c8e905fbb83a..e07f3b1a393fa9a2df25f0f9aed19c6d2cab3a52 100755
+--- a/tools/install.py
++++ b/tools/install.py
+@@ -174,6 +174,7 @@ def headers(action):
+     'config.gypi',
+     'src/node.h',
+     'src/node_api.h',
++    'src/node_start.h',
+     'src/js_native_api.h',
+     'src/js_native_api_types.h',
+     'src/node_api_types.h',
+diff --git a/src/node_start.cc b/src/node_start.cc
+new file mode 100644
+index 0000000000000000000000000000000000000000..f003a5e945b6b727ee817ff0b599b66d68258979
+--- /dev/null
++++ b/src/node_start.cc
+@@ -0,0 +1,5 @@
++#include <node.h>
++
++extern "C" int node_start(int argc, char** argv) {
++    return node::Start(argc, argv);
++}
+diff --git a/src/node_start.h b/src/node_start.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1a040ca581f8299b1cb38d7989844ec8f855142
+--- /dev/null
++++ b/src/node_start.h
+@@ -0,0 +1,14 @@
++#ifndef NODE_START_H
++#define NODE_START_H
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++int node_start(int argc, char** argv);
++
++#ifdef __cplusplus
++}
++#endif
++
++#endif

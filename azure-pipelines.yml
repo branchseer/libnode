@@ -48,26 +48,26 @@ jobs:
       condition: eq( variables['Agent.OS'], 'Windows_NT' )
       displayName: 'Install GNU patch on Windows'
 
-    - bash: python3 -m scripts.download
+    - bash: python -m scripts.download
       displayName: 'Download source code of Node.js'
 
-    - bash: python3 -m scripts.patch
+    - bash: python -m scripts.patch
       displayName: 'Patch source code of Node.js'
 
-    - bash: python3 -m scripts.build
+    - bash: python -m scripts.build
       displayName: 'Build'
-      
-    - bash: python3 -m scripts.headers
+
+    - bash: python -m scripts.headers
       displayName: 'Copy Headers'
 
-    - bash: python3 -m scripts.postproc
+    - bash: python -m scripts.postproc
       displayName: 'Postprocess'
 
-    - bash: python3 -m scripts.test
+    - bash: python -m scripts.test
       displayName: 'Test'
 
     - bash: |
-        output=$(python3 -m scripts.archive)
+        output=$(python -m scripts.archive)
         echo "##vso[task.setvariable variable=zip_file;]$output"
       displayName: 'Archive'
     

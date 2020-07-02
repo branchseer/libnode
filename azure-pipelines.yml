@@ -54,11 +54,11 @@ jobs:
     - bash: python3 -m scripts.patch
       displayName: 'Patch source code of Node.js'
 
-    - bash: python3 -m scripts.headers
-      displayName: 'Copy Headers'
-
     - bash: python3 -m scripts.build
       displayName: 'Build'
+      
+    - bash: python3 -m scripts.headers
+      displayName: 'Copy Headers'
 
     - bash: python3 -m scripts.postproc
       displayName: 'Postprocess'

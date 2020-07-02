@@ -42,11 +42,10 @@ if sys.platform == 'linux':
             print('Copying', libFile.name)
             shutil.copy(libFile.path, libFolder)
 
-additional_objs = glob.glob(nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o')
+additional_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
 if sys.platform == 'win32':
-    additional_objs = [ f'{nodeSrcFolder}/out/Release/obj/node_mksnapshot/{name}.obj'
-        for name in ['node_code_cache_stub', 'node_mksnapshot'] ]
-for obj_path in additional_objs:
+    additional_obj_glob = nodeSrcFolder + '/out/Release/obj/node_mksnapshot/*.obj'
+for obj_path in glob.glob(additional_obj_glob):
     shutil.copy(obj_path, libFolder)
 
 shutil.copytree(os.path.join(nodeSrcFolder, 'include'), os.path.join(resultFolder, 'include'))

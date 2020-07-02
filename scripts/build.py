@@ -13,7 +13,7 @@ configureArgvs = [ '--enable-static', '--without-node-options' ] + config.config
 
 if sys.platform == 'win32':
     env = os.environ.copy()
-    env['config_flags'] = ' '.join(config.configFlags)
+    env['config_flags'] = ' '.join(configureArgvs)
     
     subprocess.check_call(
         ['cmd', '/c', 'vcbuild.bat'] + (['x86'] if config.x86 else []),

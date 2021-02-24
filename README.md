@@ -29,9 +29,24 @@ export LIBNODE_X86=1
 python3 -m scripts.download
 ```
 
+### Patch the source code:
+```sh
+python3 -m scripts.patch
+```
+
 ### Building Node.js:
 ```sh
 python3 -m scripts.build
+```
+
+### Postprocessing the static library files:
+```sh
+python3 -m scripts.postproc
+```
+
+### Copying the headers:
+```sh
+python3 -m scripts.headers
 ```
 
 ### Testing the library:
@@ -41,6 +56,5 @@ python3 -m scripts.test
 
 ### Archiving:
 ```sh
-python3 -m scripts.postproc
 python3 -m scripts.archive
 ```

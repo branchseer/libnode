@@ -72,9 +72,6 @@ jobs:
     - bash: python -m scripts.postproc
       displayName: 'Postprocess'
 
-    - bash: python -m scripts.test
-      displayName: 'Test'
-
     - bash: |
         output=$(python -m scripts.archive)
         echo "##vso[task.setvariable variable=zip_file;]$output"
@@ -84,6 +81,9 @@ jobs:
       inputs:
         artifactName: $(zip_file)
         pathtoPublish: $(zip_file)
+
+    - bash: python -m scripts.test
+      displayName: 'Test'
         
   - job: gh_release
     dependsOn: build

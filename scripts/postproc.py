@@ -20,9 +20,8 @@ shutil.rmtree(resultFolder, ignore_errors=True)
 os.mkdir(resultFolder)
 os.mkdir(libFolder)
 
-
 def filterLibFile(filename):
-    return 'gtest' not in filename and 'v8_nosnapshot' not in filename
+    return 'gtest' not in filename and 'v8_nosnapshot' not in filename and 'v8_init' not in filename
 
 if sys.platform == 'win32':
     for libFile in os.scandir(nodeSrcFolder + '\\out\\Release\\lib'):
@@ -51,8 +50,16 @@ elif sys.platform == 'linux':
 additional_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
 if sys.platform == 'win32':
     additional_obj_glob = nodeSrcFolder + '/out/Release/obj/node_mksnapshot/*.obj'
-for obj_path in glob.glob(additional_obj_glob):
-    shutil.copy(obj_path, libFolder)
+
+if sys.platform == 'win32':
+    print(glob.glob(nodeSrcFolder + '/out/Release/obj/**/**'))
+    for obj_path in glob.glob(additional_obj_glob):
+        shutil.copy(obj_path, libFolder)
+else:
+    subprocess.check_call([
+        'ar', 'cr', 
+        os.path.join(libFolder, "libnode_snapshot.a")
+    ] + glob.glob(additional_obj_glob))
 
 shutil.copytree(os.path.join(nodeSrcFolder, 'include'), os.path.join(resultFolder, 'include'))
 shutil.copyfile('CMakeLists.txt', os.path.join(resultFolder, 'CMakeLists.txt'))

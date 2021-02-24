@@ -1,0 +1,21 @@
+--- a/node.gyp
++++ b/node.gyp
+@@ -575,6 +575,8 @@
+       ],
+ 
+       'sources': [
++        'src/node_embedding_api.cc',
++        'src/node_embedding_api.h',
+         'src/api/async_resource.cc',
+         'src/api/callback.cc',
+         'src/api/embed_helpers.cc',
+--- a/tools/install.py
++++ b/tools/install.py
+@@ -174,6 +174,7 @@ def headers(action):
+     'config.gypi',
+     'src/node.h',
+     'src/node_api.h',
++    'src/node_embedding_api.h',
+     'src/js_native_api.h',
+     'src/js_native_api_types.h',
+     'src/node_api_types.h',

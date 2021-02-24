@@ -1,5 +1,5 @@
 variables:
-  LIBNODE_NODE_VERSION: 'v14.7.0'
+  LIBNODE_NODE_VERSION: 'v15.10.0'
 
 jobs:
   - job: build

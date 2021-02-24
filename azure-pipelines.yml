@@ -70,7 +70,18 @@ jobs:
     - bash: python -m scripts.headers
       displayName: 'Copy Headers'
 
+    - script: |
+        SET PATH=%PATH%;$(Build.SourcesDirectory)\ninja
+        pushd "C:\Program Files (x86)\Microsoft Visual Studio\Installer\"
+        for /f "delims=" %%x in ('.\vswhere.exe -latest -property InstallationPath') do set VSPATH=%%x
+        popd
+        call "%VSPATH%\VC\Auxiliary\Build\vcvars64.bat"
+        python -m scripts.postproc
+      condition: eq( variables['Agent.OS'], 'Windows_NT' )
+      displayName: 'Postprocess'
+
     - bash: python -m scripts.postproc
+      condition: ne( variables['Agent.OS'], 'Windows_NT' )
       displayName: 'Postprocess'
 
     - bash: |

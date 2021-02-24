@@ -49,12 +49,15 @@ elif sys.platform == 'linux':
 
 additional_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
 if sys.platform == 'win32':
-    additional_obj_glob = nodeSrcFolder + '/out/Release/obj/node_mksnapshot/*.obj'
+    additional_obj_glob = nodeSrcFolder + '/out/Release/obj/node_mksnapshot/src/*.obj'
 
 if sys.platform == 'win32':
-    print(glob.glob(nodeSrcFolder + '/out/Release/obj/**/**'))
-    for obj_path in glob.glob(additional_obj_glob):
-        shutil.copy(obj_path, libFolder)
+    subprocess.check_call([
+            'lib', '/OUT:' + os.path.join(libFolder, "libnode_snapshot.lib")
+        ] + 
+        glob.glob(additional_obj_glob) + 
+        glob.glob(nodeSrcFolder + '/out/Release/obj/node_mksnapshot/tools/msvs/pch/*.obj')
+    )
 else:
     subprocess.check_call([
         'ar', 'cr', 

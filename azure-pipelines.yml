@@ -3,6 +3,7 @@ variables:
 
 jobs:
   - job: build
+    timeoutInMinutes: 120
     strategy:
       matrix:
         linux:

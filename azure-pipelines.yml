@@ -117,6 +117,7 @@ jobs:
         tagSource: 'manual'
         tag: 'libnode-$(LIBNODE_NODE_VERSION)'
         assets: '$(Build.ArtifactStagingDirectory)/*/*'
+        releaseNotesSource: 'input'
         releaseNotes: '```\n$(sha1sums)\n```'
         isDraft: false
         addChangeLog: false

@@ -5,6 +5,7 @@ project(libnode_test)
 add_subdirectory(${PROJECT_SOURCE_DIR}/../libnode libnode_out)
 
 add_executable(libnode_test main.cc)
+set_property(TARGET libnode_test PROPERTY CXX_STANDARD 11)
 target_link_libraries(libnode_test libnode)
 
 if(WIN32)

@@ -104,6 +104,10 @@ jobs:
       inputs:
         downloadType: 'specific'
         downloadPath: $(Build.ArtifactStagingDirectory)
+    - bash: |
+        output=$(sha1sum *.zip)
+        echo "##vso[task.setvariable variable=sha1sums;]$output"
+      workingDirectory: $(Build.ArtifactStagingDirectory)
     - task: GitHubRelease@0
       inputs:
         gitHubConnection: 'GitHub connection 1'
@@ -113,5 +117,6 @@ jobs:
         tagSource: 'manual'
         tag: 'libnode-$(LIBNODE_NODE_VERSION)'
         assets: '$(Build.ArtifactStagingDirectory)/*/*'
+        releaseNotes: '```\n$(sha1sums)\n```'
         isDraft: false
         addChangeLog: false

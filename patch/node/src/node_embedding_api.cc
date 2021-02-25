@@ -1,14 +1,5 @@
-#ifndef NODE_EMBEDDING_API_H
-#define NODE_EMBEDDING_API_H
+#include <node.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int node_start(int argc, char** argv);
-
-#ifdef __cplusplus
+extern "C" int node_start(int argc, char** argv) {
+    return node::Start(argc, argv);
 }
-#endif
-
-#endif

@@ -99,14 +99,16 @@ jobs:
         
   - job: gh_release
     dependsOn: build
+    imageName: 'ubuntu-18.04'
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:
         downloadType: 'specific'
         downloadPath: $(Build.ArtifactStagingDirectory)
     - bash: |
-        output=$(sha1sum *.zip)
-        echo "##vso[task.setvariable variable=sha1sums;]$output"
+        echo '```' > release_notes.md
+        sha1sum --binary *.zip >> release_notes.md
+        echo '```' >> release_notes.md        
       workingDirectory: $(Build.ArtifactStagingDirectory)
     - task: GitHubRelease@0
       inputs:
@@ -116,8 +118,8 @@ jobs:
         target: '$(Build.SourceVersion)'
         tagSource: 'manual'
         tag: 'libnode-$(LIBNODE_NODE_VERSION)'
-        assets: '$(Build.ArtifactStagingDirectory)/*/*'
-        releaseNotesSource: 'input'
-        releaseNotes: '```\n$(sha1sums)\n```'
+        assets: '$(Build.ArtifactStagingDirectory)/*.zip'
+        releaseNotesSource: 'file'
+        releaseNotes: 'release_notes.md'
         isDraft: false
         addChangeLog: false

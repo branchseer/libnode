@@ -62,3 +62,9 @@ jobs:
           tag_name: ${{ env.LIBNODE_NODE_VERSION }}
           release_name: ${{ env.LIBNODE_NODE_VERSION }}
           body_path: release_notes.md
+      - name: Upload release assets
+        uses: csexton/release-asset-action@v2
+        with:
+          pattern: "*.zip"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          release-url: ${{ steps.create_release.outputs.upload_url }}

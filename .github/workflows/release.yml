@@ -54,6 +54,12 @@ jobs:
           echo '```' >> ../release_notes.md
           sha1sum --binary *.zip >> ../release_notes.md
           echo '```' >> ../release_notes.md
+      - uses: dev-drprasad/delete-tag-and-release@v0.1.3
+        with:
+          delete_release: false
+          tag_name: ${{ env.LIBNODE_NODE_VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create release
         id: create_release
         uses: actions/create-release@v1

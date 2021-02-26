@@ -9,4 +9,4 @@ zipBasenameSuffix = os.environ.get('LIBNODE_ZIP_SUFFIX', '')
 
 if os.environ.get('LIBNODE_NO_INTL', '') == '1':
 	configFlags += ['--without-intl']
-	zipBasenameSuffix += ['-nointl']
+	zipBasenameSuffix += '-nointl'

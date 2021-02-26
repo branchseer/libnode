@@ -99,7 +99,8 @@ jobs:
         
   - job: gh_release
     dependsOn: build
-    imageName: 'ubuntu-18.04'
+    pool:
+      vmImage: 'ubuntu-18.04'
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:

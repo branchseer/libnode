@@ -106,7 +106,8 @@ jobs:
         downloadType: 'specific'
         downloadPath: $(Build.ArtifactStagingDirectory)
     - bash: |
-        echo '```' > release_notes.md
+        echo '## SHA-1 Checksums' > release_notes.md
+        echo '```' >> release_notes.md
         sha1sum --binary *.zip >> release_notes.md
         echo '```' >> release_notes.md        
       workingDirectory: $(Build.ArtifactStagingDirectory)

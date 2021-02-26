@@ -57,6 +57,6 @@ jobs:
       - name: Create release
         uses: actions/create-release@v1
         with:
-          tag_name: {{ env.LIBNODE_NODE_VERSION }}
-          release_name: {{ env.LIBNODE_NODE_VERSION }}
+          tag_name: ${{ env.LIBNODE_NODE_VERSION }}
+          release_name: ${{ env.LIBNODE_NODE_VERSION }}
           body_path: release_notes.md

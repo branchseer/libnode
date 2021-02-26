@@ -28,7 +28,7 @@ jobs:
 
       - name: Archive
         run: |
-          zipname="${LIBNODE_NODE_VERSION}-${{ matrix.os }}-${{ matrix.x86 }}-${{ matrix.no_intl }}"
+          zipname="${LIBNODE_NODE_VERSION}-${{ matrix.os }}-${{ matrix.x86 }}-${{ matrix.no_intl }}.zip"
           echo $zipname > $zipname
           echo "::set-output name=zipname::$zipname"
         shell: bash

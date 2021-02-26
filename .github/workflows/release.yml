@@ -26,10 +26,45 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install nasm on Windows
+        run: choco install -y nasm
+        if: runner.os == 'Windows'
+
+      - name: Install GNU patch on Windows
+        run: choco install -y patch
+        if: runner.os == 'Windows'
+
+      - name: Install ninja on macOS
+        run: HOMEBREW_NO_AUTO_UPDATE=1 brew install ninja
+        if: runner.os == 'macOS'
+
+      - name: Install ninja on Ubuntu
+        run: sudo apt-get install -y ninja-build
+        if: runner.os == 'Linux'
+
+      - name: Download source code of Node.js
+        run: python -m scripts.download
+
+      - name: Patch source code of Node.js
+        run: python -m scripts.patch
+
+      - name: Build
+        run: python -m scripts.build
+
+      - name: Copy headers
+        run: python -m scripts.headers
+
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Postprocess
+        run: python -m scripts.postproc
+
       - name: Archive
         run: |
-          zipname="${LIBNODE_NODE_VERSION}-${{ matrix.os }}-${{ matrix.x86 }}-${{ matrix.no_intl }}.zip"
-          echo $zipname > $zipname
+          zipname=$(python -m scripts.archive)
           echo "::set-output name=zipname::$zipname"
         shell: bash
         id: archive

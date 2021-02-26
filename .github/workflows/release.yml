@@ -1,0 +1,61 @@
+name: Release
+
+on: workflow_dispatch
+
+env:
+  LIBNODE_NODE_VERSION: v15.10.0
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        x86: [0, 1]
+        no_intl: [0, 1]
+        exclude:
+          - os: macos-latest
+            x86: 1
+          - os: ubuntu-latest
+            x86: 1
+    runs-on: ${{ matrix.os }}
+    env:
+      LIBNODE_X86: ${{ matrix.x86 }}
+      LIBNODE_NO_INTL: ${{ matrix.no_intl }}
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Archive
+        run: |
+          zipname="${LIBNODE_NODE_VERSION}-${{ matrix.os }}-${{ matrix.x86 }}-${{ matrix.no_intl }}"
+          echo $zipname > $zipname
+          echo "::set-output name=zipname::$zipname"
+        shell: bash
+        id: archive
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.archive.outputs.zipname }}
+          path: ${{ steps.archive.outputs.zipname }}
+  gh_release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Compute checksums
+        run: |
+          mkdir zips
+          mv ./*/*.zip ./zips
+          cd zips
+          echo '## SHA-1 Checksums' > ../release_notes.md
+          echo '```' >> ../release_notes.md
+          sha1sum --binary *.zip >> ../release_notes.md
+          echo '```' >> ../release_notes.md
+      - name: Create release
+        uses: actions/create-release@v1  
+        tag_name: {{ env.LIBNODE_NODE_VERSION }}
+        release_name: {{ env.LIBNODE_NODE_VERSION }}
+        body_path: release_notes.md

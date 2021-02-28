@@ -13,9 +13,9 @@ jobs:
         x86: [0, 1]
         no_intl: [0, 1]
         exclude:
-          - os: macos-latest
+          - os: macos-10.15
             x86: 1
-          - os: ubuntu-latest
+          - os: ubuntu-18.04
             x86: 1
     runs-on: ${{ matrix.os }}
     env:
@@ -29,10 +29,6 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          toolset: 16.4
 
       - name: Install nasm on Windows
         run: choco install -y nasm
@@ -62,6 +58,7 @@ jobs:
       - name: Copy headers
         run: python -m scripts.headers
 
+      - uses: ilammy/msvc-dev-cmd@v1
       - name: Postprocess
         run: python -m scripts.postproc
 

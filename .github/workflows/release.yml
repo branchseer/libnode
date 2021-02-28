@@ -31,6 +31,8 @@ jobs:
           python-version: '3.x'
 
       - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          toolset: 16.4
 
       - name: Install nasm on Windows
         run: choco install -y nasm

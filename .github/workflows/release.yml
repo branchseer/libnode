@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [macos-10.15, windows-2016, ubuntu-18.04]
         x86: [0, 1]
         no_intl: [0, 1]
         exclude:

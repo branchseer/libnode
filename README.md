@@ -1,6 +1,6 @@
 # libnode 
 
-[![Build Status](https://dev.azure.com/patr0nus/libnode/_apis/build/status/libnode-ci?branchName=master)](https://dev.azure.com/patr0nus/libnode/_build/latest?definitionId=1&branchName=master)
+[![release.yml workflow status](https://github.com/patr0nus/libnode/workflows/Release/badge.svg)](https://github.com/patr0nus/libnode/actions/workflows/release.yml)
 
 This repo contains the scripts that build [Node.js](http://nodejs.org/) as a static library for embedding in [DeskGap](https://deskgap.com/).
 
@@ -10,7 +10,7 @@ This repo contains the scripts that build [Node.js](http://nodejs.org/) as a sta
 
 #### Specify the Node version:
 ```sh
-export LIBNODE_NODE_VERSION=v14.5.0
+export LIBNODE_NODE_VERSION=v15.11.0
 ```
 
 #### Remove `Intl` support to reduce the size (optional):

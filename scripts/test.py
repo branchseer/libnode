@@ -21,4 +21,5 @@ subprocess.check_call(['cmake', '--build', '.', '--config', 'Release'])
 
 exec_path = 'Release\\libnode_test.exe' if sys.platform == 'win32' else './libnode_test'
 output_version = subprocess.check_output([exec_path, '-e', 'console.log(process.version)']).decode()
+print(output_version.strip(), config.nodeVersion)
 assert output_version.strip() == config.nodeVersion

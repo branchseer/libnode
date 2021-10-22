@@ -2,5 +2,7 @@
 #include <vector>
 
 int main(int argc, char** argv) {
-	return node_start(argc, argv);
+	void* handle = node_prepare();
+	node_run(handle);
+	node_cleanup(handle);
 }

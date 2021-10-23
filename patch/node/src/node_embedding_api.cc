@@ -45,7 +45,10 @@ namespace {
         std::unique_ptr<node::CommonEnvironmentSetup> setup =
             node::CommonEnvironmentSetup::Create(
                 platform, &errors, args, exec_args,
-                node::EnvironmentFlags::kDefaultFlags | node::EnvironmentFlags::kNoGlobalSearchPaths
+                static_cast<node::EnvironmentFlags::Flags>(
+                    node::EnvironmentFlags::kDefaultFlags |
+                    node::EnvironmentFlags::kNoGlobalSearchPaths
+                )
             );
 
         if (!setup) {

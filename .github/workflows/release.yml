@@ -1,9 +1,14 @@
 name: Release
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      nodeVersion:
+        description: "Node.js version"
+        required: true
 
 env:
-  LIBNODE_NODE_VERSION: v16.12.0
+  LIBNODE_NODE_VERSION: ${{ github.event.inputs.nodeVersion }}
 
 jobs:
   build:

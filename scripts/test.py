@@ -20,7 +20,7 @@ subprocess.check_call(['cmake', '--build', '.', '--config', 'Release'])
 
 tests = [
 #    executable args expected_output
-    ["simple", ["console.log('42')"], ["42", "exit code: 0"]],
+    ["simple", ["console.log(require('http').STATUS_CODES[418])"], ["I'm a Teapot", "exit code: 0"]],
     ["simple", ["process.exit(12)"], ["exit code: 12"]],
     ["simple", ["invalid javascript"], ["napi_run_script failed", "exit code: 1"]],
     ["process_argv", [], ["hello node", "exit code: 0"]],

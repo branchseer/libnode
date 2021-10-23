@@ -77,7 +77,10 @@ namespace {
             });
 
             v8::MaybeLocal<v8::Value> loadenv_ret = node::LoadEnvironment(
-                env, "process._linkedBinding('__embedder_mod')");
+                env,
+                "globalThis.require = require('module').createRequire(process.execPath);"
+                "process._linkedBinding('__embedder_mod');"
+            );
 
             if (loadenv_ret.IsEmpty()) {  // There has been a JS exception.
                 result.exit_code = 1;

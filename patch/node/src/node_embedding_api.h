@@ -9,7 +9,7 @@ extern "C" {
 
 typedef struct {
 	int process_argc;
-	const char** process_argv;	
+	const char* const * process_argv;	
 
 	napi_addon_register_func napi_reg_func;
 } node_options_t;

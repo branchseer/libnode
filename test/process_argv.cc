@@ -23,7 +23,7 @@ static napi_value napi_entry(napi_env env, napi_value exports) {
 
 int main(int argc, char** argv) {
 	const char* process_args[] = { argv[0], "hello", "node" };
-	node_run_result_t res = node_run({ 3, (const char**)process_args, napi_entry });
+	node_run_result_t res = node_run(node_options_t { 3, (const char* const*)process_args, napi_entry });
 	if (res.error) {
 		printf("%s\n", res.error);
 	}

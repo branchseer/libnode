@@ -24,7 +24,7 @@ namespace {
         return c_result;
     }
 
-    std::vector<std::string> create_arg_vec(int argc, const char** argv) {
+    std::vector<std::string> create_arg_vec(int argc, const char* const* argv) {
         std::vector<std::string> vec;
         if (argc > 0) {
             vec.reserve(argc);

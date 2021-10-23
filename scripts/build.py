@@ -20,5 +20,5 @@ if sys.platform == 'win32':
         env=env
     )
 else:
-    subprocess.check_call([ sys.executable, 'configure.py', '--ninja' ] + configureArgvs)
-    subprocess.check_call(['ninja', '-C', 'out/Release'])
+    subprocess.check_call([ sys.executable, 'configure.py' ] + configureArgvs)
+    subprocess.check_call(['make', '-j4'])

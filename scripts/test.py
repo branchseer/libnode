@@ -18,8 +18,24 @@ else:
 
 subprocess.check_call(['cmake', '--build', '.', '--config', 'Release'])
 
+tests = [
+#    executable args expected_output
+    ["simple", ["process.stdout.write('42 ')"], "42 exit code: 0"],
+    ["simple", ["process.exit(12)"], "exit code: 12"],
+    ["simple", ["invalid javascript"], "napi_run_script failed\nexit code: 1"],
+    ["process_argv", [], "hello node\nexit code: 0"],
+]
 
-exec_path = 'Release\\libnode_test.exe' if sys.platform == 'win32' else './libnode_test'
-output_version = subprocess.check_output([exec_path, '-e', 'console.log(process.version)']).decode()
-print(output_version.strip(), config.nodeVersion)
-assert output_version.strip() == config.nodeVersion
+failed = False
+
+for test in tests:
+    [exec_name, args, expected_output] = test
+    exec_path = f'Release\\{exec_name}.exe' if sys.platform == 'win32' else f'./{exec_name}'
+    output = subprocess.check_output([exec_path] + args).decode().strip()
+    if output != expected_output:
+        print("Assertion Failed. Expected:", expected_output, "Actual:", output)
+        failed = True
+
+if failed:
+    exit(1)
+

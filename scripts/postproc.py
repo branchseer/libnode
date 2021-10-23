@@ -47,11 +47,12 @@ elif sys.platform == 'linux':
                     check=True, shell=True
                 )
 
-additional_obj_glob = nodeSrcFolder + '/out/Release/obj/src/node_mksnapshot.*.o'
+additional_obj_glob = nodeSrcFolder + '/out/Release/obj.target/node/gen/*.o'
 if sys.platform == 'win32':
     additional_obj_glob = nodeSrcFolder + '/out/Release/obj/node_mksnapshot/src/*.obj'
 
 if sys.platform == 'win32':
+    subprocess.check_call(['tree', nodeSrcFolder + '/out/Release'])
     subprocess.check_call([
             'lib', '/OUT:' + os.path.join(libFolder, "libnode_snapshot.lib")
         ] + 

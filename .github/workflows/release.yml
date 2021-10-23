@@ -3,7 +3,7 @@ name: Release
 on: workflow_dispatch
 
 env:
-  LIBNODE_NODE_VERSION: v16.9.1
+  LIBNODE_NODE_VERSION: v16.12.0
 
 jobs:
   build:

@@ -44,7 +44,8 @@ namespace {
         std::vector<std::string> errors;
         std::unique_ptr<node::CommonEnvironmentSetup> setup =
             node::CommonEnvironmentSetup::Create(
-                platform, &errors, args, exec_args
+                platform, &errors, args, exec_args,
+                node::EnvironmentFlags::kDefaultFlags | node::EnvironmentFlags::kNoGlobalSearchPaths
             );
 
         if (!setup) {

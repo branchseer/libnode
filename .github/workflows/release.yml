@@ -93,7 +93,7 @@ jobs:
         run: python -m scripts.test
         
   gh_release:
-    if: {{ github.event.inputs.nodeVersion }} == "1"
+    if: ${{ github.event.inputs.nodeVersion }} == "1"
     needs: build
     runs-on: ubuntu-latest
     steps:

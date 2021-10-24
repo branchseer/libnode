@@ -6,18 +6,14 @@ on:
       nodeVersion:
         description: "Node.js version"
         required: true
-      publish:
-        description: "Upload to GitHub releases, and cancel on error"
-        required: true
-        default: "1"
 
 env:
   LIBNODE_NODE_VERSION: ${{ github.event.inputs.nodeVersion }}
 
 jobs:
   build:
-    continue-on-error: "${{ github.event.inputs.publish }}" != "1"
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-11, windows-2019, ubuntu-20.04]
         x86: [0, 1]
@@ -34,11 +30,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '11.2.1'
-        if: runner.os == 'macOS'
 
       - uses: actions/setup-python@v2
         with:
@@ -93,7 +84,6 @@ jobs:
         run: python -m scripts.test
         
   gh_release:
-    if: "${{ github.event.inputs.publish }}" == "1"
     needs: build
     runs-on: ubuntu-latest
     steps:

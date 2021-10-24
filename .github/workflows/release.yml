@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    continue-on-error: ${{ github.event.inputs.nodeVersion }} != "1"
+    continue-on-error: "${{ github.event.inputs.publish }}" != "1"
     strategy:
       matrix:
         os: [macos-11, windows-2019, ubuntu-20.04]
@@ -93,7 +93,7 @@ jobs:
         run: python -m scripts.test
         
   gh_release:
-    if: ${{ github.event.inputs.nodeVersion }} == "1"
+    if: "${{ github.event.inputs.publish }}" == "1"
     needs: build
     runs-on: ubuntu-latest
     steps:

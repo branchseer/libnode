@@ -9,7 +9,7 @@ from . import config
 
 os.chdir('node-{}'.format(config.nodeVersion))
 
-configureArgvs = [ '--enable-static', '--without-node-options' ] + config.configFlags
+configureArgvs = [ '--enable-static' ] + config.configFlags
 
 if sys.platform == 'win32':
     env = os.environ.copy()

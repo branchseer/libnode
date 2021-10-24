@@ -113,7 +113,11 @@ extern "C" {
         std::vector<std::string> exec_args;
         std::vector<std::string> errors;
         int exit_code = node::InitializeNodeWithArgs(
-            &args, &exec_args, &errors
+            &args, &exec_args, &errors,
+            static_cast<node::ProcessFlags::Flags>(
+                node::ProcessFlags::kDisableCLIOptions |
+                node::ProcessFlags::kDisableNodeOptionsEnv
+            )
         );
 
         if (exit_code != 0) {

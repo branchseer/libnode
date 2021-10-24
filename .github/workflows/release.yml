@@ -6,13 +6,17 @@ on:
       nodeVersion:
         description: "Node.js version"
         required: true
+      publish:
+        description: "Upload to GitHub releases, and cancel on error"
+        required: true
+        default: "1"
 
 env:
   LIBNODE_NODE_VERSION: ${{ github.event.inputs.nodeVersion }}
 
 jobs:
   build:
-    continue-on-error: true
+    continue-on-error: ${{ github.event.inputs.nodeVersion }} != "1"
     strategy:
       matrix:
         os: [macos-10.15, windows-2019, ubuntu-20.04]
@@ -89,6 +93,7 @@ jobs:
         run: python -m scripts.test
         
   gh_release:
+    if: {{ github.event.inputs.nodeVersion }} == "1"
     needs: build
     runs-on: ubuntu-latest
     steps:

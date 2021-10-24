@@ -36,7 +36,7 @@ elif sys.platform == 'darwin':
             print('Striping', libFile.name)
             subprocess.check_call(['strip', '-x', os.path.join(libFolder, libFile.name)])
 elif sys.platform == 'linux':
-    for dirname, _, basenames in os.walk(nodeSrcFolder + '/out/Release/obj'):
+    for dirname, _, basenames in os.walk(nodeSrcFolder + '/out/Release/obj.target'):
         for basename in basenames:
             if basename.endswith('.a') and filterLibFile(basename):
                 subprocess.run(
